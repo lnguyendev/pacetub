@@ -21,7 +21,7 @@ const TextFieldGroup = ({
   return (
     <div>
       <FormGroup validationState={error ? 'error' : null}>
-        <ControlLabel className="form-label">{label}</ControlLabel>
+        {label && <ControlLabel className="form-label">{label}</ControlLabel>}
         <FormControl
           type={type}
           name={name}
@@ -43,6 +43,7 @@ TextFieldGroup.propTypes = {
   value: PropTypes.string.isRequired,
   info: PropTypes.string,
   error: PropTypes.string,
+  label: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.string

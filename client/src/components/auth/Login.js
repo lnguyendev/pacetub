@@ -54,40 +54,41 @@ class Login extends Component {
 
     return (
       <div className="box-view">
-        <div className="login-container">
-          <h1 className="login-title">Login</h1>
-          <form noValidate onSubmit={this.onSubmit}>
-            <TextFieldGroup
-              label="Email Address"
-              placeholder="example@example.com"
-              name="email"
-              type="email"
-              value={this.state.email}
-              onChange={this.onChange}
-              error={errors.email}
-            />
-            <TextFieldGroup
-              label="Password"
-              placeholder="password"
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.onChange}
-              error={errors.password}
-            />
-            {errors.credentials && (
-              <Alert bsStyle="danger">{errors.credentials}</Alert>
-            )}
-            <Button type="submit" bsStyle="primary" block>
-              Submit
-            </Button>
-          </form>
-          <p className="regular-text">
-            Don't have an account?{' '}
-            <span>
-              <Link to="/register">Register</Link> here!
-            </span>
-          </p>
+        <div className="auth-container">
+          <h1 className="auth-title">Timesheet</h1>
+          <div className="login-container">
+            <h3 className="login-title">Login</h3>
+            <form noValidate onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                placeholder="Email Address"
+                name="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+              />
+              <TextFieldGroup
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              {errors.credentials && (
+                <Alert bsStyle="danger">{errors.credentials}</Alert>
+              )}
+              <Button type="submit" bsStyle="primary" block>
+                Login
+              </Button>
+            </form>
+            <p className="regular-text">
+              Don't have an account?{' '}
+              <span>
+                <Link to="/register">Register</Link> here!
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     );

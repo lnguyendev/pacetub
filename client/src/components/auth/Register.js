@@ -52,54 +52,53 @@ class Register extends Component {
 
     return (
       <div className="box-view">
-        <div className="register-container">
-          <h1 className="register-title">Register</h1>
-          <form noValidate onSubmit={this.onSubmit}>
-            <TextFieldGroup
-              label="Name"
-              placeholder="John Doe"
-              name="name"
-              value={this.state.name}
-              onChange={this.onChange}
-              error={errors.name}
-            />
-            <TextFieldGroup
-              label="Email"
-              placeholder="example@example"
-              name="email"
-              type="email"
-              value={this.state.email}
-              onChange={this.onChange}
-              error={errors.email}
-            />
-            <TextFieldGroup
-              label="Password"
-              placeholder="password"
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.onChange}
-              error={errors.password}
-            />
-            <TextFieldGroup
-              label="Confirm Password"
-              placeholder="confirm password"
-              name="confirmedPassword"
-              type="password"
-              value={this.state.confirmedPassword}
-              onChange={this.onChange}
-              error={errors.confirmedPassword}
-            />
-            <Button type="submit" bsStyle="primary" block>
-              Submit
-            </Button>
-          </form>
-          <p className="regular-text">
-            Already have an account?{' '}
-            <span>
-              <Link to="/">Login</Link> here!
-            </span>
-          </p>
+        <div className="auth-container">
+          <h1 className="auth-title">Timesheet</h1>
+          <div className="register-container">
+            <h3 className="register-title">Register</h3>
+            <form noValidate onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                placeholder="Name"
+                name="name"
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <TextFieldGroup
+                placeholder="Email Address"
+                name="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+              />
+              <TextFieldGroup
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <TextFieldGroup
+                placeholder="Confirm Password"
+                name="confirmedPassword"
+                type="password"
+                value={this.state.confirmedPassword}
+                onChange={this.onChange}
+                error={errors.confirmedPassword}
+              />
+              <Button type="submit" bsStyle="primary" block>
+                Register
+              </Button>
+            </form>
+            <p className="regular-text">
+              Already have an account?{' '}
+              <span>
+                <Link to="/">Login</Link> here!
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     );

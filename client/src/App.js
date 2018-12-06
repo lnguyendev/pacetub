@@ -11,7 +11,6 @@ import './App.scss';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
-import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
@@ -34,7 +33,6 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Navbar />
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/register" component={Register} />

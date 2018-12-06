@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -15,17 +15,9 @@ class Navbar extends Component {
   }
   render() {
     return (
-      <div
-        className={classnames('nav-container', {
-          'position-fixed': !this.props.auth.isAuthenticated
-        })}
-      >
+      <div className="nav-container">
         <div className="nav-content">
-          <h3 className="nav-title">
-            <Link className="nav-title-link" to="/dashboard">
-              Timesheet
-            </Link>
-          </h3>
+          <h3 className="nav-title">Timesheet</h3>
           {this.props.auth.isAuthenticated && (
             <Button
               type="button"
