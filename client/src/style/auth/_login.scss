@@ -1,0 +1,19 @@
+.login-container {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 500px;
+
+  .login-title {
+    color: $brand-primary;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .regular-text {
+    color: $dark-grey;
+    margin-top: 20px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,32 @@
+.nav-container {
+  background-color: $brand-primary;
+  display: flex;
+  height: 60px;
+  width: 100vw;
+
+  .nav-content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1150px;
+  }
+
+  .nav-title {
+    color: $white;
+    margin: 0px 25px;
+
+    .nav-title-link {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  .logout-link {
+    color: $white;
+  }
+}
+
+.position-fixed {
+  position: fixed;
+}

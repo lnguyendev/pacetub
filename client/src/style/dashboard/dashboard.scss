@@ -1,0 +1,17 @@
+.dashboard-header-container {
+  align-items: center;
+  background-color: $light-grey;
+  display: flex;
+  height: 150px;
+  width: 100vw;
+
+  .dashboard-header-wrapper {
+    margin: 0 auto;
+    width: 1150px;
+  }
+
+  .dashboard-header-title {
+    color: $dark-grey;
+    margin: 0px 25px;
+  }
+}

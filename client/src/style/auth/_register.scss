@@ -1,0 +1,7 @@
+.register-container {
+  @extend .login-container;
+
+  .register-title {
+    @extend .login-title;
+  }
+}
