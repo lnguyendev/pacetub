@@ -4,7 +4,8 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock
+  HelpBlock,
+  InputGroup
 } from 'react-bootstrap';
 
 const TextFieldGroup = ({
@@ -16,21 +17,29 @@ const TextFieldGroup = ({
   info,
   type,
   onChange,
-  disabled
+  disabled,
+  addon
 }) => {
   return (
     <div>
       <FormGroup validationState={error ? 'error' : null}>
-        {label && <ControlLabel className="form-label">{label}</ControlLabel>}
-        <FormControl
-          type={type}
-          name={name}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          disabled={disabled}
-        />
-        <FormControl.Feedback />
+        <InputGroup>
+          {label && <ControlLabel className="form-label">{label}</ControlLabel>}
+          {addon && (
+            <InputGroup.Addon>
+              <i className={addon} />
+            </InputGroup.Addon>
+          )}
+          <FormControl
+            type={type}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            disabled={disabled}
+          />
+          <FormControl.Feedback />
+        </InputGroup>
         {error && <HelpBlock className="error-message">{error}</HelpBlock>}
       </FormGroup>
     </div>
@@ -46,7 +55,8 @@ TextFieldGroup.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  disabled: PropTypes.string
+  disabled: PropTypes.string,
+  addon: PropTypes.string
 };
 
 TextFieldGroup.defaultProps = {

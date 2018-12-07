@@ -61,6 +61,7 @@ class Login extends Component {
             <form noValidate onSubmit={this.onSubmit}>
               <TextFieldGroup
                 placeholder="Email Address"
+                addon="fas fa-user"
                 name="email"
                 type="email"
                 value={this.state.email}
@@ -69,6 +70,7 @@ class Login extends Component {
               />
               <TextFieldGroup
                 placeholder="Password"
+                addon="fas fa-lock"
                 name="password"
                 type="password"
                 value={this.state.password}

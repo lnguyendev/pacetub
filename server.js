@@ -5,6 +5,7 @@ const passport = require('passport');
 
 const authRoute = require('./routes/api/auth');
 const usersRoute = require('./routes/api/users');
+const timesheetRoute = require('./routes/api/timesheet');
 
 const app = express();
 
@@ -36,6 +37,11 @@ app.use(
   '/api/users',
   passport.authenticate('jwt', { session: false }),
   usersRoute
+);
+app.use(
+  '/api/timesheet',
+  passport.authenticate('jwt', { session: false }),
+  timesheetRoute
 );
 
 app.use((err, req, res, next) => {
