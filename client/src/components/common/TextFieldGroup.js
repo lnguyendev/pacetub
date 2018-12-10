@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  HelpBlock,
-  InputGroup
-} from 'react-bootstrap';
+
+import { Form, Icon, Input } from 'antd';
+const FormItem = Form.Item;
 
 const TextFieldGroup = ({
   name,
@@ -18,30 +14,28 @@ const TextFieldGroup = ({
   type,
   onChange,
   disabled,
-  addon
+  icon
 }) => {
   return (
     <div>
-      <FormGroup validationState={error ? 'error' : null}>
-        <InputGroup>
-          {label && <ControlLabel className="form-label">{label}</ControlLabel>}
-          {addon && (
-            <InputGroup.Addon>
-              <i className={addon} />
-            </InputGroup.Addon>
-          )}
-          <FormControl
-            type={type}
-            name={name}
-            value={value}
-            placeholder={placeholder}
-            onChange={onChange}
-            disabled={disabled}
-          />
-          <FormControl.Feedback />
-        </InputGroup>
-        {error && <HelpBlock className="error-message">{error}</HelpBlock>}
-      </FormGroup>
+      <FormItem
+        label={label}
+        hasFeedback
+        validateStatus={error ? 'error' : null}
+        help={error && error}
+      >
+        <Input
+          prefix={
+            icon && <Icon type={icon} style={{ color: 'rgba(0,0,0,.25)' }} />
+          }
+          placeholder={placeholder}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        />
+      </FormItem>
     </div>
   );
 };
@@ -56,7 +50,7 @@ TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.string,
-  addon: PropTypes.string
+  icon: PropTypes.string
 };
 
 TextFieldGroup.defaultProps = {

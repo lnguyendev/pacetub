@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
@@ -58,10 +58,10 @@ class Login extends Component {
           <h1 className="auth-title">Timesheet</h1>
           <div className="login-container">
             <h3 className="login-title">Login</h3>
-            <form noValidate onSubmit={this.onSubmit}>
+            <Form noValidate onSubmit={this.onSubmit}>
               <TextFieldGroup
                 placeholder="Email Address"
-                addon="fas fa-user"
+                icon="user"
                 name="email"
                 type="email"
                 value={this.state.email}
@@ -70,7 +70,7 @@ class Login extends Component {
               />
               <TextFieldGroup
                 placeholder="Password"
-                addon="fas fa-lock"
+                icon="lock"
                 name="password"
                 type="password"
                 value={this.state.password}
@@ -78,12 +78,12 @@ class Login extends Component {
                 error={errors.password}
               />
               {errors.credentials && (
-                <Alert bsStyle="danger">{errors.credentials}</Alert>
+                <Alert message={errors.credentials} type="error" showIcon />
               )}
-              <Button type="submit" bsStyle="primary" block>
+              <Button type="primary" htmlType="submit" block>
                 Login
               </Button>
-            </form>
+            </Form>
             <p className="regular-text">
               Don't have an account?{' '}
               <span>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { logoutUser } from '../../actions/authActions';
@@ -16,16 +15,15 @@ class Navbar extends Component {
     return (
       <div className="nav-container">
         <div className="nav-content">
-          <h3 className="nav-title">Timesheet</h3>
+          <h2 className="nav-title">Timesheet</h2>
           {this.props.auth.isAuthenticated && (
-            <Button
-              type="button"
-              bsStyle="link"
+            <a
+              href="#"
               className="logout-link"
               onClick={this.onLogoutClick.bind(this)}
             >
               Logout
-            </Button>
+            </a>
           )}
         </div>
       </div>

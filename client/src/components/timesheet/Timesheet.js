@@ -12,7 +12,6 @@ class Timesheet extends Component {
 
   render() {
     const { timesheets, loading } = this.props.timesheet;
-    console.log(timesheets);
     let timesheetContent;
 
     if (timesheets === null || loading) {

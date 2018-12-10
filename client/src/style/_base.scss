@@ -60,3 +60,10 @@ h6 {
 .input-group {
   width: 100%;
 }
+
+.auth-container {
+  .ant-alert,
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+}

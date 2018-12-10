@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Form, Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -56,7 +56,7 @@ class Register extends Component {
           <h1 className="auth-title">Timesheet</h1>
           <div className="register-container">
             <h3 className="register-title">Register</h3>
-            <form noValidate onSubmit={this.onSubmit}>
+            <Form noValidate onSubmit={this.onSubmit}>
               <TextFieldGroup
                 placeholder="Name"
                 name="name"
@@ -88,10 +88,10 @@ class Register extends Component {
                 onChange={this.onChange}
                 error={errors.confirmedPassword}
               />
-              <Button type="submit" bsStyle="primary" block>
+              <Button type="primary" htmlType="submit" block>
                 Register
               </Button>
-            </form>
+            </Form>
             <p className="regular-text">
               Already have an account?{' '}
               <span>
