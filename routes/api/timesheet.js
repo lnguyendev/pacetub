@@ -4,6 +4,7 @@ const moment = require('moment');
 const router = express.Router();
 
 const Timesheet = require('../../models/Timesheet');
+const ValidateTaskInput = require('../../utils/validation/task');
 const dateFormat = 'MM-DD-YYYY';
 
 // @route   GET api/timesheet
@@ -22,16 +23,22 @@ router.get('/', (req, res) => {
 // @desc    Create a timesheet and/or task in a timesheet
 // @access  Private
 router.post('/', (req, res) => {
+  const { errors, isValid } = ValidateTaskInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const now = moment().format(dateFormat);
   const newTask = {
-    text: req.body.text,
+    description: req.body.description,
     hours: req.body.hours
   };
 
   Timesheet.findOne({ dateFormatted: now, user: req.user.id }).then(
     timesheet => {
       if (timesheet) {
-        timesheet.tasks.unshift(newTask);
+        timesheet.tasks.push(newTask);
         timesheet
           .save()
           .then(timesheet => res.json(timesheet))

@@ -9,12 +9,13 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
+    padding: 25px;
     width: 1150px;
   }
 
   .nav-title {
     color: $white;
-    margin: 0px 25px;
+    margin: 0px;
 
     .nav-title-link {
       color: $white;

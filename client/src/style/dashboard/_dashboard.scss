@@ -1,9 +1,13 @@
+.dashboard-container {
+  width: 100vw;
+}
+
 .dashboard-header-container {
   align-items: center;
   background-color: $light-grey;
   display: flex;
   height: 150px;
-  width: 100vw;
+  width: auto;
 
   .dashboard-header-wrapper {
     margin: 0 auto;
@@ -14,4 +18,9 @@
     color: $dark-grey;
     margin: 0px 25px;
   }
+}
+
+.dashboard-content-container {
+  padding: 25px;
+  width: auto;
 }

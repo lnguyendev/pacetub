@@ -8,7 +8,7 @@ module.exports = function validateRegisterInput(data) {
 
   dataFields.forEach(field => {
     if (_.isEmpty(data[field])) {
-      errors[field] = `${field} field is required`;
+      errors[field] = `${field} field is required.`;
     }
   });
 

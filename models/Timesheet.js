@@ -16,7 +16,7 @@ const TimesheetSchema = new Schema({
   },
   tasks: [
     {
-      text: {
+      description: {
         type: String,
         required: true
       },
