@@ -2,9 +2,9 @@ import {
   TIMESHEET_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
-  ADD_TASK
+  MODIFY_TASK_LIST,
+  REMOVE_TIMESHEET
 } from '../actions/types';
-import _ from 'lodash';
 
 const initialState = {
   timesheets: [],
@@ -29,14 +29,26 @@ export default (state = initialState, action) => {
         ...state,
         timesheets: [action.payload, ...state.timesheets]
       };
-    case ADD_TASK:
+    case MODIFY_TASK_LIST:
       return {
         ...state,
-        timesheets: _.forEach(state.timesheets, timesheet => {
-          if (timesheet._id === action.payload.timesheetId) {
-            timesheet.tasks.push(action.payload.task);
+        timesheets: state.timesheets.map(timesheet => {
+          if (timesheet._id === action.payload._id) {
+            return {
+              ...timesheet,
+              ...action.payload
+            };
+          } else {
+            return timesheet;
           }
         })
+      };
+    case REMOVE_TIMESHEET:
+      return {
+        ...state,
+        timesheets: state.timesheets.filter(
+          timesheet => timesheet._id !== action.payload
+        )
       };
     default:
       return state;

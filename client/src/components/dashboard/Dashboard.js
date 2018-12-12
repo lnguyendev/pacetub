@@ -1,27 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 
-class Dashboard extends Component {
-  render() {
-    return (
-      <div className="dashboard-container">
-        <DashboardHeader headerTitle="Dashboard" />
-        <DashboardContent />
-      </div>
-    );
-  }
-}
-
-Dashboard.propTypes = {
-  auth: PropTypes.object.isRequired
+export default () => {
+  return (
+    <div className="dashboard-container">
+      <DashboardHeader headerTitle="Dashboard" />
+      <DashboardContent />
+    </div>
+  );
 };
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps)(Dashboard);

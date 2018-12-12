@@ -96,8 +96,6 @@ router.delete('/:id/task/:task_id', (req, res) => {
     .catch(err =>
       res.status(404).json({ notimesheetfound: 'timesheet not found.' })
     );
-
-  // res.json({ timesheetId, taskId });
 });
 
 module.exports = router;

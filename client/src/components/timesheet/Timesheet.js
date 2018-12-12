@@ -1,39 +1,47 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import _ from 'lodash';
+import { Collapse } from 'antd';
+import Tasks from './Tasks';
 
-import { getTimesheets } from '../../actions/timesheetActions';
-import Spinner from '../common/Spinner';
+const Panel = Collapse.Panel;
 
 class Timesheet extends Component {
-  componentDidMount() {
-    this.props.getTimesheets();
-  }
-
   render() {
-    const { timesheets, loading } = this.props.timesheet;
-    let timesheetContent;
+    const { timesheets } = this.props;
 
-    if (timesheets === null || loading) {
-      timesheetContent = <Spinner />;
-    } else {
-      timesheetContent = <h1>{timesheets.length}</h1>;
-    }
+    const timesheetContent = _.map(timesheets, timesheet => {
+      const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
+      const dateFormat = moment(timesheet.dateFormatted).format('MM/DD/YYYY');
 
-    return <div>{timesheetContent}</div>;
+      return (
+        <Panel
+          header={`${dayOfWeek} - ${dateFormat}`}
+          key={timesheet._id}
+          showArrow={false}
+        >
+          <Tasks timesheet={timesheet} />
+        </Panel>
+      );
+    });
+
+    return (
+      <div className="timesheet-container">
+        <div className="timesheet-content">
+          <Collapse
+            defaultActiveKey={[timesheets.length > 0 ? timesheets[0]._id : '']}
+          >
+            {timesheetContent}
+          </Collapse>
+        </div>
+      </div>
+    );
   }
 }
 
 Timesheet.propTypes = {
-  getTimesheets: PropTypes.func.isRequired,
-  timesheet: PropTypes.object.isRequired
+  timesheets: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => ({
-  timesheet: state.timesheet
-});
-
-export default connect(
-  mapStateToProps,
-  { getTimesheets }
-)(Timesheet);
+export default Timesheet;

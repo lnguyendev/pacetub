@@ -76,7 +76,7 @@ class TimesheetForm extends Component {
       <ul className="task-form-error-container">
         {_.map(errors, error => (
           <li className="task-form-error-item" key={error}>
-            <i class="fas fa-exclamation-circle" /> {error}
+            <i className="fas fa-exclamation-circle" /> {error}
           </li>
         ))}
       </ul>

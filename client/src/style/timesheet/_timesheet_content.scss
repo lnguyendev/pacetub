@@ -1,0 +1,38 @@
+.no-timesheet-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+.timesheet-container {
+  display: flex;
+
+  .timesheet-content {
+    padding: 25px;
+    margin: 0 auto;
+    width: 1150px;
+  }
+
+  .task-item-text-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10px;
+  }
+
+  .task-item-description {
+    margin-right: 20px;
+  }
+
+  .task-item-hours {
+    color: $cool-green;
+    text-align: right;
+  }
+
+  i.far {
+    cursor: pointer;
+  }
+
+  .far.fa-times-circle {
+    color: $error;
+  }
+}

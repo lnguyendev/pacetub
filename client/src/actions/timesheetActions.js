@@ -6,7 +6,8 @@ import {
   TIMESHEET_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
-  ADD_TASK
+  MODIFY_TASK_LIST,
+  REMOVE_TIMESHEET
 } from './types';
 
 export const getTimesheets = () => dispatch => {
@@ -36,15 +37,37 @@ export const addTimesheet = timesheetData => dispatch => {
     .then(res => {
       if (res.data.tasks.length > 1) {
         dispatch({
-          type: ADD_TASK,
-          payload: {
-            timesheetId: res.data._id,
-            task: res.data.tasks[0]
-          }
+          type: MODIFY_TASK_LIST,
+          payload: res.data
         });
       } else {
         dispatch({
           type: ADD_TIMESHEET,
+          payload: res.data
+        });
+      }
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const removeTask = (timesheetId, taskId) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .delete(`api/timesheet/${timesheetId}/task/${taskId}`)
+    .then(res => {
+      if (res.data.hasOwnProperty('timesheetdelete')) {
+        dispatch({
+          type: REMOVE_TIMESHEET,
+          payload: timesheetId
+        });
+      } else {
+        dispatch({
+          type: MODIFY_TASK_LIST,
           payload: res.data
         });
       }
