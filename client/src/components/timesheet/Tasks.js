@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Timeline } from 'antd';
 import { removeTask } from '../../actions/timesheetActions';
@@ -18,13 +19,26 @@ class Tasks extends Component {
     e.target.setAttribute('class', checkIcon);
   }
 
-  handleTaskRemove(timesheetId, taskId) {
-    this.props.removeTask(timesheetId, taskId);
+  handleTaskRemove(timesheet, taskId) {
+    if (timesheet.tasks.length === 1) {
+      if (
+        window.confirm(
+          'Removing this task will remove the entire timesheet. Are you sure you want to continue?'
+        )
+      ) {
+        this.props.removeTask(timesheet._id, taskId);
+      }
+    } else {
+      this.props.removeTask(timesheet._id, taskId);
+    }
   }
 
   render() {
-    const { timesheet } = this.props;
+    const { timesheet, taskLoading } = this.props;
     const tasks = timesheet.tasks;
+    const timelinePending =
+      moment().format('MM/DD/YYYY') ===
+      moment(timesheet.date).format('MM/DD/YYYY');
 
     const taskItemContent = _.map(tasks, task => {
       return (
@@ -35,11 +49,7 @@ class Tasks extends Component {
               className="far fa-check-circle"
               onMouseEnter={this.onMouseEnter.bind(this)}
               onMouseLeave={this.onMouseLeave.bind(this)}
-              onClick={this.handleTaskRemove.bind(
-                this,
-                timesheet._id,
-                task._id
-              )}
+              onClick={this.handleTaskRemove.bind(this, timesheet, task._id)}
               style={{ fontSize: '20px' }}
             />
           }
@@ -56,21 +66,21 @@ class Tasks extends Component {
       );
     });
 
-    return <Timeline>{taskItemContent}</Timeline>;
+    return taskLoading && timelinePending ? (
+      <Timeline pending="Adding task...">{taskItemContent}</Timeline>
+    ) : (
+      <Timeline>{taskItemContent}</Timeline>
+    );
   }
 }
 
 Tasks.propTypes = {
   removeTask: PropTypes.func.isRequired,
   timesheet: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  taskLoading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   { removeTask }
 )(Tasks);

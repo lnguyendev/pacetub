@@ -4,6 +4,7 @@ import {
   CLEAR_ERRORS,
   GET_ERRORS,
   TIMESHEET_LOADING,
+  TASK_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
@@ -32,6 +33,7 @@ export const getTimesheets = () => dispatch => {
 
 export const addTimesheet = timesheetData => dispatch => {
   dispatch(clearErrors());
+  dispatch(setTaskLoading());
   axios
     .post('/api/timesheet', timesheetData)
     .then(res => {
@@ -83,6 +85,12 @@ export const removeTask = (timesheetId, taskId) => dispatch => {
 export const setTimesheetLoading = () => {
   return {
     type: TIMESHEET_LOADING
+  };
+};
+
+export const setTaskLoading = () => {
+  return {
+    type: TASK_LOADING
   };
 };
 

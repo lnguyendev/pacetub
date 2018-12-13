@@ -9,7 +9,7 @@ const Panel = Collapse.Panel;
 
 class Timesheet extends Component {
   render() {
-    const { timesheets } = this.props;
+    const { timesheets, taskLoading } = this.props;
 
     const timesheetContent = _.map(timesheets, timesheet => {
       const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
@@ -21,7 +21,7 @@ class Timesheet extends Component {
           key={timesheet._id}
           showArrow={false}
         >
-          <Tasks timesheet={timesheet} />
+          <Tasks taskLoading={taskLoading} timesheet={timesheet} />
         </Panel>
       );
     });
@@ -41,7 +41,8 @@ class Timesheet extends Component {
 }
 
 Timesheet.propTypes = {
-  timesheets: PropTypes.array.isRequired
+  timesheets: PropTypes.array.isRequired,
+  taskLoading: PropTypes.bool.isRequired
 };
 
 export default Timesheet;

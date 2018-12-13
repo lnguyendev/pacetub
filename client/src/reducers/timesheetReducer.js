@@ -1,5 +1,6 @@
 import {
   TIMESHEET_LOADING,
+  TASK_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
@@ -8,7 +9,8 @@ import {
 
 const initialState = {
   timesheets: [],
-  loading: false
+  loading: false,
+  taskLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +19,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      };
+    case TASK_LOADING:
+      return {
+        ...state,
+        taskLoading: true
       };
     case GET_TIMESHEETS:
       return {
@@ -27,11 +34,13 @@ export default (state = initialState, action) => {
     case ADD_TIMESHEET:
       return {
         ...state,
+        taskLoading: false,
         timesheets: [action.payload, ...state.timesheets]
       };
     case MODIFY_TASK_LIST:
       return {
         ...state,
+        taskLoading: false,
         timesheets: state.timesheets.map(timesheet => {
           if (timesheet._id === action.payload._id) {
             return {

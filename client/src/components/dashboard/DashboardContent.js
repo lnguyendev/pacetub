@@ -14,14 +14,16 @@ class DashboardContent extends Component {
   }
 
   render() {
-    const { timesheets, loading } = this.props.timesheet;
+    const { timesheets, loading, taskLoading } = this.props.timesheet;
     let timesheetsContent;
 
     if (timesheets === null || loading) {
       timesheetsContent = <Spinner />;
     } else {
       if (timesheets.length > 0) {
-        timesheetsContent = <Timesheet timesheets={timesheets} />;
+        timesheetsContent = (
+          <Timesheet taskLoading={taskLoading} timesheets={timesheets} />
+        );
       } else {
         timesheetsContent = (
           <div className="no-timesheet-container">
