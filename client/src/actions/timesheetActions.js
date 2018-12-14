@@ -5,6 +5,7 @@ import {
   GET_ERRORS,
   TIMESHEET_LOADING,
   TASK_LOADING,
+  TASK_NOT_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
@@ -49,12 +50,13 @@ export const addTimesheet = timesheetData => dispatch => {
         });
       }
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch(unsetTaskLoading());
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 export const removeTask = (timesheetId, taskId) => dispatch => {
@@ -91,6 +93,12 @@ export const setTimesheetLoading = () => {
 export const setTaskLoading = () => {
   return {
     type: TASK_LOADING
+  };
+};
+
+export const unsetTaskLoading = () => {
+  return {
+    type: TASK_NOT_LOADING
   };
 };
 

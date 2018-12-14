@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import classnames from 'classnames';
+import { Form, Row, Col, Input, Slider, InputNumber, Icon, Button } from 'antd';
 
 import { addTimesheet } from '../../actions/timesheetActions';
+
+const FormItem = Form.Item;
+const { TextArea } = Input;
+
+function formatter(value) {
+  return `${value} hours`;
+}
 
 class TimesheetForm extends Component {
   constructor(props) {
@@ -13,37 +20,18 @@ class TimesheetForm extends Component {
     this.state = {
       description: '',
       hours: '',
-      descriptionPlaceholder: 'Task Description',
-      hoursPlaceholder: 'Hours',
       errors: {}
     };
 
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onHoursChange = this.onHoursChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onFocus(e) {
-    if (e.target.name === 'description') {
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
       this.setState({
-        descriptionPlaceholder: ''
-      });
-    } else if (e.target.name === 'hours') {
-      this.setState({
-        hoursPlaceholder: ''
-      });
-    }
-  }
-
-  onBlur(e) {
-    if (e.target.name === 'description') {
-      this.setState({
-        descriptionPlaceholder: 'Task Description'
-      });
-    } else if (e.target.name === 'hours') {
-      this.setState({
-        hoursPlaceholder: 'Hours'
+        errors: { ...this.props.errors }
       });
     }
   }
@@ -54,12 +42,22 @@ class TimesheetForm extends Component {
     });
   }
 
+  onHoursChange = value => {
+    if (Number.isNaN(value)) {
+      return;
+    }
+
+    this.setState({
+      hours: value > 0 ? value : ''
+    });
+  };
+
   onSubmit(e) {
     e.preventDefault();
 
     const timesheetData = {
       description: this.state.description,
-      hours: this.state.hours
+      hours: this.state.hours.toString()
     };
 
     this.props.addTimesheet(timesheetData);
@@ -71,50 +69,92 @@ class TimesheetForm extends Component {
   }
 
   render() {
-    const { errors } = this.props;
-    const errorsContent = _.isEmpty(errors) ? null : (
-      <ul className="task-form-error-container">
-        {_.map(errors, error => (
-          <li className="task-form-error-item" key={error}>
-            <i className="fas fa-exclamation-circle" /> {error}
-          </li>
-        ))}
-      </ul>
-    );
+    const { errors } = this.state;
+    const iconColor = errors && errors.hours ? '#f5222d' : '#ababab';
 
     return (
       <div className="task-form-container">
         <div className="task-form-field-group">
-          {!_.isEmpty(errors) && errorsContent}
-          <form noValidate className="task-form" onSubmit={this.onSubmit}>
-            <input
-              type="text"
-              placeholder={this.state.descriptionPlaceholder}
-              name="description"
-              className={classnames('task-inputs task-description-input', {
-                'input-is-invalid': errors && errors.description
-              })}
-              value={this.state.description}
-              onChange={this.onChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-            />
-            <input
-              type="number"
-              placeholder={this.state.hoursPlaceholder}
-              name="hours"
-              className={classnames('task-inputs task-hours-input', {
-                'input-is-invalid': errors && errors.hours
-              })}
-              value={this.state.hours}
-              onChange={this.onChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-            />
-            <button type="submit" className="btn-task">
-              Submit
-            </button>
-          </form>
+          <Form noValidate className="task-form" onSubmit={this.onSubmit}>
+            <Row gutter={16}>
+              <Col sm={24} md={12} lg={12} xl={12}>
+                <FormItem
+                  hasFeedback
+                  validateStatus={errors && errors.description ? 'error' : null}
+                  help={errors.description && errors.description}
+                >
+                  <TextArea
+                    placeholder="Task Description"
+                    name="description"
+                    className={classnames('', {
+                      'input-is-invalid': errors && errors.description
+                    })}
+                    value={this.state.description}
+                    onChange={this.onChange}
+                    rows={4}
+                    autosize={{ minRows: 4, maxRows: 4 }}
+                  />
+                </FormItem>
+              </Col>
+              <Col sm={24} md={12} lg={12} xl={12}>
+                <Row>
+                  <Col xs={19} sm={20} md={19} lg={20} xl={20}>
+                    <FormItem
+                      validateStatus={errors && errors.hours ? 'error' : null}
+                      help={errors.hours && errors.hours}
+                    >
+                      <div className="icon-wrapper">
+                        <Icon
+                          type="clock-circle"
+                          style={{ color: iconColor }}
+                        />
+                        <Slider
+                          min={0}
+                          max={24}
+                          name="hours"
+                          onChange={this.onHoursChange}
+                          value={
+                            typeof this.state.hours === 'number'
+                              ? this.state.hours
+                              : 0
+                          }
+                          step={0.5}
+                          tipFormatter={formatter}
+                        />
+                      </div>
+                    </FormItem>
+                  </Col>
+                  <Col xs={5} sm={4} md={5} lg={4} xl={4}>
+                    <FormItem
+                      hasFeedback
+                      validateStatus={errors && errors.hours ? 'error' : null}
+                    >
+                      <InputNumber
+                        placeholder="Hours"
+                        min={0}
+                        max={24}
+                        step={0.5}
+                        value={this.state.hours}
+                        onChange={this.onHoursChange}
+                      />
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <Button
+                      htmlType="submit"
+                      type="primary"
+                      block
+                      style={{ marginTop: -2 }}
+                    >
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Form>
         </div>
       </div>
     );

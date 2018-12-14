@@ -17,6 +17,7 @@ class Navbar extends Component {
         <div className="nav-content">
           <h2 className="nav-title">Timesheet</h2>
           {this.props.auth.isAuthenticated && (
+            // eslint-disable-next-line
             <a
               href="#"
               className="logout-link"

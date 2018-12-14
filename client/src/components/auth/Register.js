@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 import { registerUser } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
 
 class Register extends Component {
   constructor(props) {
@@ -22,9 +23,21 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.setState({
+        errors: { ...this.props.errors }
+      });
     }
   }
 
@@ -48,7 +61,7 @@ class Register extends Component {
   }
 
   render() {
-    const { errors } = this.props;
+    const { errors } = this.state;
 
     return (
       <div className="box-view">
@@ -107,6 +120,7 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -118,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser, clearErrors }
 )(withRouter(Register));

@@ -1,6 +1,7 @@
 import {
   TIMESHEET_LOADING,
   TASK_LOADING,
+  TASK_NOT_LOADING,
   GET_TIMESHEETS,
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
@@ -24,6 +25,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         taskLoading: true
+      };
+    case TASK_NOT_LOADING:
+      return {
+        ...state,
+        taskLoading: false
       };
     case GET_TIMESHEETS:
       return {

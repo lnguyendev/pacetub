@@ -3,6 +3,7 @@ import { Form, Button, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -20,9 +21,21 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.setState({
+        errors: { ...this.props.errors }
+      });
     }
   }
 
@@ -50,7 +63,7 @@ class Login extends Component {
   }
 
   render() {
-    const { errors } = this.props;
+    const { errors } = this.state;
 
     return (
       <div className="box-view">
@@ -99,6 +112,7 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -110,5 +124,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, clearErrors }
 )(Login);

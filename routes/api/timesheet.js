@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
   const now = moment().format(dateFormat);
   const newTask = {
     description: req.body.description,
-    hours: req.body.hours
+    hours: req.body.hours.toString()
   };
 
   Timesheet.findOne({ dateFormatted: now, user: req.user.id }).then(
