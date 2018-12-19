@@ -12,8 +12,8 @@ class Timesheet extends Component {
     const { timesheets, taskLoading } = this.props;
 
     const timesheetContent = _.map(timesheets, timesheet => {
-      const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
-      const dateFormat = moment(timesheet.dateFormatted).format('MM/DD/YYYY');
+      const dayOfWeek = moment(timesheet.date).format('dddd');
+      const dateFormat = moment(timesheet.date).format('MM/DD/YYYY');
 
       return (
         <Panel

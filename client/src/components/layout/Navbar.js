@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { logoutUser } from '../../actions/authActions';
@@ -15,7 +16,9 @@ class Navbar extends Component {
     return (
       <div className="nav-container">
         <div className="nav-content">
-          <h2 className="nav-title">Timesheet</h2>
+          <Link to="/dashboard">
+            <h2 className="nav-title">Timesheet</h2>
+          </Link>
           {this.props.auth.isAuthenticated && (
             // eslint-disable-next-line
             <a

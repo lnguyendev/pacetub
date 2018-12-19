@@ -12,8 +12,57 @@ const dateFormat = 'MM-DD-YYYY';
 // @access  Private
 router.get('/', (req, res) => {
   Timesheet.find({ user: req.user.id })
-    .sort({ dateFormatted: -1 })
+    .sort({ date: -1 })
     .then(timesheets => res.json(timesheets))
+    .catch(err =>
+      res.status(404).json({ notimesheetfound: 'No timesheets found.' })
+    );
+});
+
+// @route   GET api/timesheet/:startDate
+// @desc    Get week range timesheets based on startDate and endDate from a user
+// @access  Private
+router.get('/:startDate', (req, res) => {
+  const startDate = moment(new Date(req.params.startDate))
+    .startOf('day')
+    .format();
+  const endDate = moment(new Date(req.params.startDate))
+    .endOf('week')
+    .endOf('day')
+    .format();
+
+  Timesheet.find({
+    user: req.user.id,
+    date: {
+      $lte: endDate,
+      $gte: startDate
+    }
+  })
+    .sort({ date: -1 })
+    .then(timesheets => {
+      if (timesheets.length > 0) {
+        return res.json(timesheets);
+      } else {
+        Timesheet.findOne({
+          user: req.user.id,
+          date: {
+            $lt: startDate
+          }
+        })
+          .sort({ date: -1 })
+          .then(timesheet => {
+            if (timesheet) {
+              const startDate = moment(timesheet.date)
+                .startOf('week')
+                .format(dateFormat);
+
+              return res.json({ startDate });
+            } else {
+              return res.json([]);
+            }
+          });
+      }
+    })
     .catch(err =>
       res.status(404).json({ notimesheetfound: 'No timesheets found.' })
     );

@@ -24,3 +24,35 @@
   margin: 25px 0px;
   width: auto;
 }
+
+.dashboard-timesheet-nav-container {
+  display: flex;
+
+  .dashboard-timesheet-nav {
+    margin: 0 auto;
+    padding: 0px 25px;
+    width: 1150px;
+  }
+
+  .nav-previous,
+  .nav-next {
+    font-size: 25px;
+  }
+
+  .nav-previous {
+    text-align: left;
+  }
+
+  .nav-next {
+    text-align: right;
+  }
+
+  .nav-date-display {
+    padding: 7px;
+    text-align: center;
+
+    div {
+      margin: 0;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 
 import {
   CLEAR_ERRORS,
@@ -9,8 +10,11 @@ import {
   GET_TIMESHEETS,
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
-  REMOVE_TIMESHEET
+  REMOVE_TIMESHEET,
+  UPDATE_DATE
 } from './types';
+
+const dateFormat = 'MM-DD-YYYY';
 
 export const getTimesheets = () => dispatch => {
   dispatch(clearErrors());
@@ -24,6 +28,35 @@ export const getTimesheets = () => dispatch => {
         payload: res.data
       })
     )
+    .catch(err =>
+      dispatch({
+        type: GET_TIMESHEETS,
+        payload: null
+      })
+    );
+};
+
+export const getWeekRangeTimesheets = (startDate, history) => dispatch => {
+  dispatch(clearErrors());
+  dispatch(setTimesheetLoading());
+
+  dispatch({
+    type: UPDATE_DATE,
+    payload: getDates(startDate)
+  });
+
+  axios
+    .get(`api/timesheet/${startDate}`)
+    .then(res => {
+      if (res.data.hasOwnProperty('startDate')) {
+        history.push(`/dashboard?start=${res.data.startDate}`);
+      } else {
+        dispatch({
+          type: GET_TIMESHEETS,
+          payload: res.data
+        });
+      }
+    })
     .catch(err =>
       dispatch({
         type: GET_TIMESHEETS,
@@ -105,5 +138,30 @@ export const unsetTaskLoading = () => {
 export const clearErrors = () => {
   return {
     type: CLEAR_ERRORS
+  };
+};
+
+export const getDates = startDate => {
+  const thisWeek = moment()
+    .startOf('week')
+    .format(dateFormat);
+
+  const currentStartDate = startDate ? startDate : thisWeek;
+
+  const prevStartDate = moment(currentStartDate)
+    .subtract(1, 'w')
+    .format(dateFormat);
+
+  const nextStartDate = moment(currentStartDate)
+    .add(1, 'w')
+    .format(dateFormat);
+
+  const isThisWeek = currentStartDate === thisWeek;
+
+  return {
+    currentStartDate,
+    prevStartDate,
+    nextStartDate,
+    isThisWeek
   };
 };
