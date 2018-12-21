@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     );
 });
 
-// @route   GET api/timesheet/:startDate
+// @route   GET api/timesheet/:startDate?:lookIntoThePast
 // @desc    Get week range timesheets based on startDate and endDate from a user
 // @access  Private
 router.get('/:startDate', (req, res) => {
@@ -30,6 +30,8 @@ router.get('/:startDate', (req, res) => {
     .endOf('week')
     .endOf('day')
     .format();
+
+  const lookIntoThePast = req.query.lookIntoThePast === 'true';
 
   Timesheet.find({
     user: req.user.id,
@@ -45,11 +47,15 @@ router.get('/:startDate', (req, res) => {
       } else {
         Timesheet.findOne({
           user: req.user.id,
-          date: {
-            $lt: startDate
-          }
+          date: lookIntoThePast
+            ? {
+                $lt: startDate
+              }
+            : {
+                $gt: startDate
+              }
         })
-          .sort({ date: -1 })
+          .sort({ date: lookIntoThePast ? -1 : 1 })
           .then(timesheet => {
             if (timesheet) {
               const startDate = moment(timesheet.date)

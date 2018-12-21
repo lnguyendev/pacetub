@@ -31,14 +31,23 @@ export const getTimesheets = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_TIMESHEETS,
-        payload: null
+        payload: []
       })
     );
 };
 
-export const getWeekRangeTimesheets = (startDate, history) => dispatch => {
+export const getWeekRangeTimesheets = (startDate, history) => (
+  dispatch,
+  getState
+) => {
+  if (!moment(startDate).isValid()) {
+    history.replace('/not-found');
+  }
+
   dispatch(clearErrors());
   dispatch(setTimesheetLoading());
+
+  const { lookIntoThePast } = getState().nav;
 
   dispatch({
     type: UPDATE_DATE,
@@ -46,7 +55,7 @@ export const getWeekRangeTimesheets = (startDate, history) => dispatch => {
   });
 
   axios
-    .get(`api/timesheet/${startDate}`)
+    .get(`api/timesheet/${startDate}?lookIntoThePast=${lookIntoThePast}`)
     .then(res => {
       if (res.data.hasOwnProperty('startDate')) {
         history.push(`/dashboard?start=${res.data.startDate}`);
@@ -57,12 +66,12 @@ export const getWeekRangeTimesheets = (startDate, history) => dispatch => {
         });
       }
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_TIMESHEETS,
-        payload: null
-      })
-    );
+        payload: []
+      });
+    });
 };
 
 export const addTimesheet = timesheetData => dispatch => {

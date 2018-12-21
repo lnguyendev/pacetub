@@ -1,18 +1,15 @@
-import { UPDATE_DATE } from '../actions/types';
+import { UPDATE_DATABASE_LOOKUP } from '../actions/types';
 
 const initialState = {
-  currentStartDate: '',
-  prevStartDate: '',
-  nextStartDate: '',
-  isThisWeek: false
+  lookIntoThePast: true
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_DATE:
+    case UPDATE_DATABASE_LOOKUP:
       return {
         ...state,
-        ...action.payload
+        lookIntoThePast: action.payload
       };
     default:
       return state;

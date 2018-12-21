@@ -14,6 +14,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import NotFound from './components/common/NotFound';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -36,6 +37,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/not-found" component={NotFound} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
