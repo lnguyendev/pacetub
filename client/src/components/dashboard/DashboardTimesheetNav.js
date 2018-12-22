@@ -16,7 +16,7 @@ class DashboardTimesheetNav extends Component {
   }
 
   render() {
-    const { date, timesheets } = this.props;
+    const { date, timesheets, nav } = this.props;
     const startDate = moment(date.currentStartDate).format(dateFormat);
     const endDate = moment(date.currentStartDate)
       .endOf('week')
@@ -27,14 +27,16 @@ class DashboardTimesheetNav extends Component {
         <div className="dashboard-timesheet-nav">
           <Row>
             <Col md={1} xs={2} className="nav-previous">
-              {timesheets && timesheets.length > 0 ? (
+              {timesheets &&
+              timesheets.length === 0 &&
+              nav.lookIntoThePast ? null : (
                 <Link
                   to={`/dashboard?start=${date.prevStartDate}`}
                   onClick={this.updateDatabaseLookup.bind(this, true)}
                 >
                   <Icon type="left-circle" />
                 </Link>
-              ) : null}
+              )}
             </Col>
             <Col md={22} xs={20} className="nav-date-display">
               <Divider>
@@ -42,14 +44,17 @@ class DashboardTimesheetNav extends Component {
               </Divider>
             </Col>
             <Col md={1} xs={2} className="nav-next">
-              {!date.isThisWeek ? (
+              {date.isThisWeek ||
+              (timesheets &&
+                timesheets.length === 0 &&
+                !nav.lookIntoThePast) ? null : (
                 <Link
                   to={`/dashboard?start=${date.nextStartDate}`}
                   onClick={this.updateDatabaseLookup.bind(this, false)}
                 >
                   <Icon type="right-circle" />
                 </Link>
-              ) : null}
+              )}
             </Col>
           </Row>
         </div>
@@ -65,7 +70,8 @@ DashboardTimesheetNav.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  date: state.date
+  date: state.date,
+  nav: state.nav
 });
 
 export default connect(

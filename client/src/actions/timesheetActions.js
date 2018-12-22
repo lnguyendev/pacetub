@@ -15,6 +15,7 @@ import {
 } from './types';
 
 const dateFormat = 'MM-DD-YYYY';
+// const validDateFormatRegex = /(0\d{1}|1[0-2])\-([0-2]\d{1}|3[0-1])\-(19|20)\d{2}/g;
 
 export const getTimesheets = () => dispatch => {
   dispatch(clearErrors());
@@ -58,7 +59,7 @@ export const getWeekRangeTimesheets = (startDate, history) => (
     .get(`api/timesheet/${startDate}?lookIntoThePast=${lookIntoThePast}`)
     .then(res => {
       if (res.data.hasOwnProperty('startDate')) {
-        history.push(`/dashboard?start=${res.data.startDate}`);
+        history.replace(`/dashboard?start=${res.data.startDate}`);
       } else {
         dispatch({
           type: GET_TIMESHEETS,
