@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classnames from 'classnames';
 import { Collapse } from 'antd';
 import Tasks from './Tasks';
 
@@ -15,11 +16,25 @@ class Timesheet extends Component {
       const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
       const dateFormat = moment(timesheet.dateFormatted).format('MM/DD/YYYY');
 
+      const headerContent = (
+        <div className="timesheet-header-container">
+          <p className="timesheet-header-container-date">
+            {dayOfWeek} - {dateFormat}{' '}
+          </p>
+          {timesheet.isNew && (
+            <p className="timesheet-header-container-new">*New</p>
+          )}
+        </div>
+      );
+
       return (
         <Panel
-          header={`${dayOfWeek} - ${dateFormat}`}
+          header={headerContent}
           key={timesheet._id}
           showArrow={false}
+          className={classnames('', {
+            'timesheet-panel-isnew': timesheet.isNew
+          })}
         >
           <Tasks taskLoading={taskLoading} timesheet={timesheet} />
         </Panel>

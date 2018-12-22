@@ -7,6 +7,31 @@
 .timesheet-container {
   display: flex;
 
+  .ant-collapse
+    > .ant-collapse-item.ant-collapse-no-arrow
+    > .ant-collapse-header {
+    padding-right: 12px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .ant-collapse > .ant-collapse-item.timesheet-panel-isnew {
+    border-color: $success;
+    background-color: lighten($color: $success, $amount: 57);
+  }
+
+  .timesheet-header-container-new {
+    color: $success;
+    font-style: italic;
+  }
+
+  .timesheet-header-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .timesheet-content {
     padding: 25px;
     margin: 0 auto;

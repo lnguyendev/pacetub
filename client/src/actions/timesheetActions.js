@@ -89,7 +89,10 @@ export const addTimesheet = timesheetData => dispatch => {
       } else {
         dispatch({
           type: ADD_TIMESHEET,
-          payload: res.data
+          payload: {
+            ...res.data,
+            isNew: true
+          }
         });
       }
     })
