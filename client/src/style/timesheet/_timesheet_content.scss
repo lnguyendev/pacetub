@@ -18,13 +18,12 @@
   }
 
   .ant-collapse > .ant-collapse-item.timesheet-panel-isnew {
-    border-color: $success;
-    background-color: lighten($color: $success, $amount: 57);
+    border-color: $brand-primary;
+    background-color: lighten($color: $brand-primary, $amount: 39);
   }
 
-  .timesheet-header-container-new {
-    color: $success;
-    font-style: italic;
+  .timesheet-header-container-date {
+    font-weight: 500;
   }
 
   .timesheet-header-container {

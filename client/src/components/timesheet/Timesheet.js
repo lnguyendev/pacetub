@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classnames from 'classnames';
-import { Collapse } from 'antd';
+import { Collapse, Tag } from 'antd';
 import Tasks from './Tasks';
 
 const Panel = Collapse.Panel;
@@ -19,11 +19,9 @@ class Timesheet extends Component {
       const headerContent = (
         <div className="timesheet-header-container">
           <p className="timesheet-header-container-date">
-            {dayOfWeek} - {dateFormat}{' '}
+            {dayOfWeek} - {dateFormat}
           </p>
-          {timesheet.isNew && (
-            <p className="timesheet-header-container-new">*New</p>
-          )}
+          {timesheet.isNew && <Tag color="#66B9BF">New</Tag>}
         </div>
       );
 

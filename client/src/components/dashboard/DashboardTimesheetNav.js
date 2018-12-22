@@ -22,6 +22,10 @@ class DashboardTimesheetNav extends Component {
       .endOf('week')
       .format(dateFormat);
 
+    const navLabel = date.isThisWeek
+      ? 'Current Week'
+      : `${startDate} - ${endDate}`;
+
     return (
       <div className="dashboard-timesheet-nav-container">
         <div className="dashboard-timesheet-nav">
@@ -39,9 +43,7 @@ class DashboardTimesheetNav extends Component {
               )}
             </Col>
             <Col md={22} xs={20} className="nav-date-display">
-              <Divider>
-                {startDate} - {endDate}
-              </Divider>
+              <Divider>{navLabel}</Divider>
             </Col>
             <Col md={1} xs={2} className="nav-next">
               {date.isThisWeek ||

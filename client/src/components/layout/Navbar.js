@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { logoutUser } from '../../actions/authActions';
+import { updateDatabaseLookup } from '../../actions/timesheetNavActions';
 
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
 
+    this.props.updateDatabaseLookup(true);
     this.props.logoutUser(this.props.history);
   }
   render() {
@@ -37,6 +39,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  updateDatabaseLookup: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -46,5 +49,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, updateDatabaseLookup }
 )(withRouter(Navbar));

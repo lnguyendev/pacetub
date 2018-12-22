@@ -11,7 +11,8 @@ import {
   ADD_TIMESHEET,
   MODIFY_TASK_LIST,
   REMOVE_TIMESHEET,
-  UPDATE_DATE
+  UPDATE_DATE,
+  UPDATE_DATABASE_LOOKUP
 } from './types';
 
 const dateFormat = 'MM-DD-YYYY';
@@ -47,24 +48,39 @@ export const getWeekRangeTimesheets = (startDate, history) => (
 
   dispatch(clearErrors());
   dispatch(setTimesheetLoading());
+  dispatch(updateDate(startDate));
 
   const { lookIntoThePast } = getState().nav;
-
-  dispatch({
-    type: UPDATE_DATE,
-    payload: getDates(startDate)
-  });
+  const { isThisWeek } = getState().date;
 
   axios
     .get(`api/timesheet/${startDate}?lookIntoThePast=${lookIntoThePast}`)
     .then(res => {
-      if (res.data.hasOwnProperty('startDate')) {
+      if (res.data.hasOwnProperty('startDate') && !isThisWeek) {
         history.replace(`/dashboard?start=${res.data.startDate}`);
-      } else {
+      } else if (res.data.hasOwnProperty('startDate') && isThisWeek) {
+        dispatch({
+          type: UPDATE_DATABASE_LOOKUP,
+          payload: false
+        });
         dispatch({
           type: GET_TIMESHEETS,
-          payload: res.data
+          payload: []
         });
+      } else {
+        if (
+          Array.isArray(res.data) &&
+          res.data.length === 0 &&
+          !isThisWeek &&
+          !lookIntoThePast
+        ) {
+          history.replace('/dashboard');
+        } else {
+          dispatch({
+            type: GET_TIMESHEETS,
+            payload: res.data
+          });
+        }
       }
     })
     .catch(err => {
@@ -145,6 +161,13 @@ export const setTaskLoading = () => {
 export const unsetTaskLoading = () => {
   return {
     type: TASK_NOT_LOADING
+  };
+};
+
+export const updateDate = startDate => {
+  return {
+    type: UPDATE_DATE,
+    payload: getDates(startDate)
   };
 };
 
