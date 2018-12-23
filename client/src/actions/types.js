@@ -1,5 +1,6 @@
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const GET_SUCCESS_MSG = 'GET_SUCCESS_MSG';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const TIMESHEET_LOADING = 'TIMESHEET_LOADING';
 export const TASK_LOADING = 'TASK_LOADING';

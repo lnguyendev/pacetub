@@ -90,6 +90,9 @@ class Login extends Component {
                 onChange={this.onChange}
                 error={errors.password}
               />
+              <div className="forgot-password-link">
+                <Link to="/forgot-password">Forgot password?</Link>
+              </div>
               {errors.credentials && (
                 <Alert message={errors.credentials} type="error" showIcon />
               )}
