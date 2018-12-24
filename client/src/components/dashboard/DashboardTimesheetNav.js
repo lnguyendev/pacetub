@@ -6,9 +6,9 @@ import moment from 'moment';
 
 import { updateDatabaseLookup } from '../../actions/timesheetNavActions';
 
-import { Row, Col, Icon, Divider } from 'antd';
+import { Row, Col, Tooltip } from 'antd';
 
-const dateFormat = 'MM/DD/YYYY';
+const dateFormat = 'MMM DD, YYYY';
 
 class DashboardTimesheetNav extends Component {
   updateDatabaseLookup(val) {
@@ -30,33 +30,45 @@ class DashboardTimesheetNav extends Component {
       <div className="dashboard-timesheet-nav-container">
         <div className="dashboard-timesheet-nav">
           <Row>
-            <Col md={1} xs={2} className="nav-previous">
-              {timesheets &&
-              timesheets.length === 0 &&
-              nav.lookIntoThePast ? null : (
-                <Link
-                  to={`/dashboard?start=${date.prevStartDate}`}
-                  onClick={this.updateDatabaseLookup.bind(this, true)}
-                >
-                  <Icon type="left-circle" />
-                </Link>
-              )}
+            <Col span={20} className="nav-date-display">
+              {navLabel}
             </Col>
-            <Col md={22} xs={20} className="nav-date-display">
-              <Divider>{navLabel}</Divider>
-            </Col>
-            <Col md={1} xs={2} className="nav-next">
-              {date.isThisWeek ||
-              (timesheets &&
-                timesheets.length === 0 &&
-                !nav.lookIntoThePast) ? null : (
-                <Link
-                  to={`/dashboard?start=${date.nextStartDate}`}
-                  onClick={this.updateDatabaseLookup.bind(this, false)}
-                >
-                  <Icon type="right-circle" />
-                </Link>
-              )}
+            <Col span={4}>
+              <div className="nav-btn-container">
+                <div className="nav-previous">
+                  {timesheets &&
+                  timesheets.length === 0 &&
+                  nav.lookIntoThePast ? (
+                    <i className="fas fa-angle-left disabled-icon" />
+                  ) : (
+                    <Tooltip title="Previous Week">
+                      <Link
+                        to={`/dashboard?start=${date.prevStartDate}`}
+                        onClick={this.updateDatabaseLookup.bind(this, true)}
+                      >
+                        <i className="fas fa-angle-left" />
+                      </Link>
+                    </Tooltip>
+                  )}
+                </div>
+                <div className="nav-next">
+                  {date.isThisWeek ||
+                  (timesheets &&
+                    timesheets.length === 0 &&
+                    !nav.lookIntoThePast) ? (
+                    <i className="fas fa-angle-right disabled-icon" />
+                  ) : (
+                    <Tooltip title="Next Week">
+                      <Link
+                        to={`/dashboard?start=${date.nextStartDate}`}
+                        onClick={this.updateDatabaseLookup.bind(this, false)}
+                      >
+                        <i className="fas fa-angle-right" />
+                      </Link>
+                    </Tooltip>
+                  )}
+                </div>
+              </div>
             </Col>
           </Row>
         </div>
@@ -68,7 +80,8 @@ class DashboardTimesheetNav extends Component {
 DashboardTimesheetNav.propTypes = {
   updateDatabaseLookup: PropTypes.func.isRequired,
   timesheets: PropTypes.array.isRequired,
-  date: PropTypes.object.isRequired
+  date: PropTypes.object.isRequired,
+  nav: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

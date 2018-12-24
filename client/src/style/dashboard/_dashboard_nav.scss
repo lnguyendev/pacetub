@@ -1,0 +1,44 @@
+.dashboard-timesheet-nav-container {
+  display: flex;
+
+  .dashboard-timesheet-nav {
+    background: $white;
+    margin: 0 auto;
+    padding: 0px 25px;
+    width: 1150px;
+  }
+
+  .nav-btn-container {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .fas.disabled-icon {
+    color: $grey;
+  }
+
+  .nav-previous,
+  .nav-next {
+    font-size: 30px;
+  }
+
+  .nav-previous {
+    margin-right: 10px;
+  }
+
+  .nav-next {
+    margin-left: 10px;
+  }
+
+  .nav-date-display {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 0px;
+    text-align: left;
+
+    div {
+      margin: 0;
+    }
+  }
+}

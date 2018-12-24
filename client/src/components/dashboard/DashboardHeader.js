@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import moment from 'moment';
 import _ from 'lodash';
 import { Icon } from 'antd';
 import CircularProgressbar from 'react-circular-progressbar';
@@ -50,6 +52,7 @@ class DashboardHeader extends Component {
     if (this.props !== prevProps) {
       const { timesheets } = this.props.timesheet;
       const { isThisWeek } = this.props.date;
+      const { start } = queryString.parse(this.props.location.search);
 
       const loggedHours = this.calculateTimesheetsHours(timesheets, isThisWeek);
       const percentageAchieved = (loggedHours / this.state.goalHours) * 100;
@@ -60,7 +63,10 @@ class DashboardHeader extends Component {
         hourSuffix: loggedHours > 1 ? ' hrs' : ' hr'
       });
 
-      if (this.state !== prevState && !_.isEmpty(this.props.location.search)) {
+      const checkQueryStringDateIsThisWeek =
+        moment(start).startOf('week') === moment().startOf('week');
+
+      if (this.state !== prevState && !checkQueryStringDateIsThisWeek) {
         this.setState({
           startHour: prevState.loggedHours
         });

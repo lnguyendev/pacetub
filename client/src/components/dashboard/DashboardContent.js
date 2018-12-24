@@ -65,7 +65,7 @@ class DashboardContent extends Component {
           </div>
         </div>
       );
-      timesheetNav = null;
+      timesheetNav = <DashboardTimesheetNav timesheets={timesheets || []} />;
     } else {
       if (timesheets.length > 0) {
         timesheetsContent = (
