@@ -4,24 +4,59 @@ import moment from 'moment';
 import _ from 'lodash';
 import classnames from 'classnames';
 import { Collapse, Tag } from 'antd';
+import CircularProgressbar from 'react-circular-progressbar';
+
 import Tasks from './Tasks';
 
 const Panel = Collapse.Panel;
 
 class Timesheet extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      goalHours: 8
+    };
+  }
+
+  calculatePercentageAchieved(tasks) {
+    const loggedHours = _.reduce(
+      tasks,
+      (sum, task) => {
+        return sum + task.hours;
+      },
+      0
+    );
+
+    return (loggedHours / this.state.goalHours) * 100;
+  }
+
   render() {
     const { timesheets, taskLoading } = this.props;
 
     const timesheetContent = _.map(timesheets, timesheet => {
       const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
       const dateFormat = moment(timesheet.dateFormatted).format('MM/DD/YYYY');
+      const percentageAchieved = this.calculatePercentageAchieved(
+        timesheet.tasks
+      );
 
       const headerContent = (
         <div className="timesheet-header-container">
           <p className="timesheet-header-container-date">
             {dayOfWeek} - {dateFormat}
           </p>
-          {timesheet.isNew && <Tag color="#66B9BF">New</Tag>}
+
+          <div className="timesheet-progress-bar-container">
+            {timesheet.isNew && <Tag color="#66B9BF">New</Tag>}
+            <div className="timesheet-progress-bar">
+              <CircularProgressbar
+                initialAnimation={true}
+                percentage={percentageAchieved}
+                className="progress-bar-cir"
+              />
+            </div>
+          </div>
         </div>
       );
 

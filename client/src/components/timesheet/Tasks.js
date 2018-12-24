@@ -55,11 +55,9 @@ class Tasks extends Component {
           }
         >
           <div className="task-item-text-container">
-            <p className="task-item-description">
-              <strong>{task.description}</strong>
-            </p>
+            <p className="task-item-description">{task.description}</p>
             <p className="task-item-hours">
-              <strong>{task.hours}</strong> hours
+              {task.hours} hour{task.hours > 1 && 's'}
             </p>
           </div>
         </TimelineItem>

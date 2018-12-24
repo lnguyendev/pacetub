@@ -6,7 +6,7 @@ import DashboardContent from './DashboardContent';
 export default () => {
   return (
     <div className="dashboard-container">
-      <DashboardHeader headerTitle="Dashboard" />
+      <DashboardHeader />
       <DashboardContent />
     </div>
   );

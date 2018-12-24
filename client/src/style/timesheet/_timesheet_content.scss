@@ -40,15 +40,16 @@
   .task-item-text-container {
     display: flex;
     justify-content: space-between;
-    margin: 0px 10px;
   }
 
   .task-item-description {
-    margin-right: 20px;
+    font-weight: 500;
+    margin-left: 5px;
   }
 
   .task-item-hours {
     color: $brand-primary;
+    font-weight: bold;
     text-align: right;
   }
 
@@ -58,5 +59,14 @@
 
   .far.fa-times-circle {
     color: $error;
+  }
+
+  .timesheet-progress-bar-container {
+    display: flex;
+  }
+
+  .timesheet-progress-bar {
+    height: 22px;
+    width: 22px;
   }
 }

@@ -3,20 +3,51 @@
 }
 
 .dashboard-header-container {
-  align-items: center;
   background-color: $light-grey;
   display: flex;
   height: 150px;
-  width: auto;
 
   .dashboard-header-wrapper {
     margin: 0 auto;
+    padding: 25px;
     width: 1150px;
+  }
+
+  .dashboard-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .dashboard-header-title-icon {
+    color: lighten($color: $dark-grey, $amount: 10);
+    line-height: normal;
+    margin: 0px;
   }
 
   .dashboard-header-title {
     color: $dark-grey;
-    margin: 0px 25px;
+    line-height: normal;
+    margin: 0px;
+  }
+
+  .dashboard-progress-bar-container {
+    height: 100px;
+    position: relative;
+    width: 100px;
+  }
+
+  .dashboard-progress-hour-text {
+    color: #66b9bf;
+    font-size: 16px;
+    position: absolute;
+    top: 38px;
+    text-align: center;
+    width: 100%;
+
+    .hour-suffix {
+      font-size: 12px;
+    }
   }
 }
 

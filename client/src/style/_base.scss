@@ -67,3 +67,17 @@ h6 {
     margin-bottom: 10px;
   }
 }
+
+.progress-bar-cir {
+  .CircularProgressbar-path {
+    stroke: $brand-primary;
+  }
+
+  .CircularProgressbar-trail {
+    stroke: $grey;
+  }
+
+  .CircularProgressbar-text {
+    fill: $brand-primary;
+  }
+}
