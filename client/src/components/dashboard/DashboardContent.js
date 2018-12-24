@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { Spin } from 'antd';
 
 import { getWeekRangeTimesheets } from '../../actions/timesheetActions';
-import Spinner from '../common/Spinner';
 
 import TimesheetForm from '../timesheet/TimesheetForm';
 import DashboardTimesheetNav from './DashboardTimesheetNav';
@@ -61,17 +61,16 @@ class DashboardContent extends Component {
       timesheetsContent = (
         <div className="regular-timesheet-container">
           <div className="regular-timesheet-wrapper">
-            <Spinner />
+            <Spin size="large" />
           </div>
         </div>
       );
-      timesheetNav = <p style={{ textAlign: 'center' }}>Loading...</p>;
+      timesheetNav = null;
     } else {
       if (timesheets.length > 0) {
         timesheetsContent = (
           <Timesheet taskLoading={taskLoading} timesheets={timesheets} />
         );
-        timesheetNav = <DashboardTimesheetNav timesheets={timesheets} />;
       } else {
         timesheetsContent = (
           <div className="regular-timesheet-container">
@@ -80,8 +79,9 @@ class DashboardContent extends Component {
             </div>
           </div>
         );
-        timesheetNav = <DashboardTimesheetNav timesheets={timesheets} />;
       }
+
+      timesheetNav = <DashboardTimesheetNav timesheets={timesheets} />;
     }
 
     return (
