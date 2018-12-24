@@ -1,7 +1,14 @@
-.no-timesheet-container {
+.regular-timesheet-container {
   display: flex;
-  justify-content: center;
-  padding: 50px;
+
+  .regular-timesheet-wrapper {
+    background: $white;
+    margin: 0 auto;
+    min-height: 315px;
+    padding: 50px;
+    text-align: center;
+    width: 1150px;
+  }
 }
 
 .timesheet-container {
@@ -32,8 +39,10 @@
   }
 
   .timesheet-content {
+    background: $white;
     padding: 25px;
     margin: 0 auto;
+    min-height: 315px;
     width: 1150px;
   }
 

@@ -12,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $body-background-color;
+  background-color: $body-background-color !important;
   color: $body-default-color;
 }
 
@@ -74,7 +74,7 @@ h6 {
   }
 
   .CircularProgressbar-trail {
-    stroke: $grey;
+    stroke: lighten($color: $grey, $amount: 5);
   }
 
   .CircularProgressbar-text {

@@ -58,7 +58,13 @@ class DashboardContent extends Component {
     let timesheetNav;
 
     if (timesheets === null || loading) {
-      timesheetsContent = <Spinner />;
+      timesheetsContent = (
+        <div className="regular-timesheet-container">
+          <div className="regular-timesheet-wrapper">
+            <Spinner />
+          </div>
+        </div>
+      );
       timesheetNav = <p style={{ textAlign: 'center' }}>Loading...</p>;
     } else {
       if (timesheets.length > 0) {
@@ -68,8 +74,10 @@ class DashboardContent extends Component {
         timesheetNav = <DashboardTimesheetNav timesheets={timesheets} />;
       } else {
         timesheetsContent = (
-          <div className="no-timesheet-container">
-            <p>You do not have any timesheet past this point.</p>
+          <div className="regular-timesheet-container">
+            <div className="regular-timesheet-wrapper">
+              <p>You do not have any timesheet past this point.</p>
+            </div>
           </div>
         );
         timesheetNav = <DashboardTimesheetNav timesheets={timesheets} />;

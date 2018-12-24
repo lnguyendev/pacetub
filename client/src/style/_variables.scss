@@ -2,12 +2,12 @@
 $brand-primary: #66b9bf;
 $grey: #dddddd;
 $white: #fff;
-$light-grey: #f7f7f7;
+$light-grey: #fafafa;
 $dark-grey: #777777;
 $error: #e24e42;
 $success: #52c41a;
 
 // Body
-$body-background-color: #fafafa;
+$body-background-color: $light-grey;
 $body-default-color: #333333;
 $body-default-font-family: Helvetica, Arial, sans-serif;

@@ -2,8 +2,10 @@
   display: flex;
 
   .task-form-field-group {
-    width: 1150px;
+    background: $white;
     margin: 0 auto;
+    padding-top: 25px;
+    width: 1150px;
   }
 
   .task-form {
