@@ -72,7 +72,7 @@ class Login extends Component {
     return (
       <div className="box-view">
         <div className="auth-container">
-          <h1 className="auth-title">Timesheet</h1>
+          <h1 className="auth-title">Pacetub</h1>
           <div className="login-container">
             <h3 className="login-title">Login</h3>
             <Form noValidate onSubmit={this.onSubmit}>

@@ -128,7 +128,7 @@ class ForgotPassword extends Component {
     return (
       <div className="box-view">
         <div className="auth-container">
-          <h1 className="auth-title">Timesheet</h1>
+          <h1 className="auth-title">Pacetub</h1>
           <div className="forgot-password-container">
             <h3 className="forgot-password-title">
               Oops! You forgot your password!

@@ -19,7 +19,7 @@ class Navbar extends Component {
       <div className="nav-container">
         <div className="nav-content">
           <Link to="/dashboard">
-            <h2 className="nav-title">Timesheet</h2>
+            <h2 className="nav-title">Pacetub</h2>
           </Link>
           {this.props.auth.isAuthenticated && (
             // eslint-disable-next-line
