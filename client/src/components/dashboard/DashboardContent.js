@@ -50,6 +50,8 @@ class DashboardContent extends Component {
 
       this.props.getWeekRangeTimesheets(currentStartDate, history);
     }
+
+    window.scrollTo(0, 0);
   }
 
   render() {
