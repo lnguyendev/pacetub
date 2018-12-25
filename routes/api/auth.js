@@ -144,7 +144,7 @@ router.post('/forgot-password', (req, res) => {
           const mailOptions = {
             from: keys.nodemailerEmail,
             to: user.email,
-            subject: 'Timesheet: Password Reset',
+            subject: 'Pacetub: Password Reset',
             text:
               `You are receiving this email because you (or someone else) have requested a password reset of your account.\n\n` +
               `Please click on the following link, or paste it into your browser to reset your password. You have 4 hours before this link expires.\n\n` +
