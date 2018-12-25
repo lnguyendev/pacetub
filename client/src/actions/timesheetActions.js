@@ -16,7 +16,6 @@ import {
 } from './types';
 
 const dateFormat = 'MM-DD-YYYY';
-// const validDateFormatRegex = /(0\d{1}|1[0-2])\-([0-2]\d{1}|3[0-1])\-(19|20)\d{2}/g;
 
 export const getTimesheets = () => dispatch => {
   dispatch(clearErrors());
@@ -42,7 +41,7 @@ export const getWeekRangeTimesheets = (startDate, history) => (
   dispatch,
   getState
 ) => {
-  if (!moment(startDate).isValid()) {
+  if (!moment(startDate, dateFormat).isValid()) {
     history.replace('/not-found');
   }
 
@@ -184,11 +183,11 @@ export const getDates = startDate => {
 
   const currentStartDate = startDate ? startDate : thisWeek;
 
-  const prevStartDate = moment(currentStartDate)
+  const prevStartDate = moment(currentStartDate, dateFormat)
     .subtract(1, 'w')
     .format(dateFormat);
 
-  const nextStartDate = moment(currentStartDate)
+  const nextStartDate = moment(currentStartDate, dateFormat)
     .add(1, 'w')
     .format(dateFormat);
 

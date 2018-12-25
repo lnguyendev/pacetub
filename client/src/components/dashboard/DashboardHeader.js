@@ -9,6 +9,8 @@ import { Icon } from 'antd';
 import CircularProgressbar from 'react-circular-progressbar';
 import CountUp from 'react-countup';
 
+const dateFormat = 'MM-DD-YYYY';
+
 class DashboardHeader extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +66,7 @@ class DashboardHeader extends Component {
       });
 
       const checkQueryStringDateIsThisWeek =
-        moment(start).startOf('week') === moment().startOf('week');
+        moment(start, dateFormat).startOf('week') === moment().startOf('week');
 
       if (this.state !== prevState && !checkQueryStringDateIsThisWeek) {
         this.setState({

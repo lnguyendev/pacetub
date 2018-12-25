@@ -9,6 +9,7 @@ import { removeTask } from '../../actions/timesheetActions';
 const TimelineItem = Timeline.Item;
 const checkIcon = 'far fa-check-circle';
 const removeIcon = 'far fa-times-circle';
+const validDateFormat = 'MM-DD-YYYY';
 
 class Tasks extends Component {
   onMouseEnter(e) {
@@ -37,8 +38,8 @@ class Tasks extends Component {
     const { timesheet, taskLoading } = this.props;
     const tasks = timesheet.tasks;
     const timelinePending =
-      moment().format('MM/DD/YYYY') ===
-      moment(timesheet.date).format('MM/DD/YYYY');
+      moment({}, validDateFormat).format('MM/DD/YYYY') ===
+      moment(timesheet.date, validDateFormat).format('MM/DD/YYYY');
 
     const taskItemContent = _.map(tasks, task => {
       return (

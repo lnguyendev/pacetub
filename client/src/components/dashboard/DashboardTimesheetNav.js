@@ -8,6 +8,7 @@ import { updateDatabaseLookup } from '../../actions/timesheetNavActions';
 
 import { Row, Col, Tooltip } from 'antd';
 
+const validDateFormat = 'MM-DD-YYYY';
 const dateFormat = 'MMM DD, YYYY';
 
 class DashboardTimesheetNav extends Component {
@@ -17,8 +18,10 @@ class DashboardTimesheetNav extends Component {
 
   render() {
     const { date, timesheets, nav } = this.props;
-    const startDate = moment(date.currentStartDate).format(dateFormat);
-    const endDate = moment(date.currentStartDate)
+    const startDate = moment(date.currentStartDate, validDateFormat).format(
+      dateFormat
+    );
+    const endDate = moment(date.currentStartDate, validDateFormat)
       .endOf('week')
       .format(dateFormat);
 

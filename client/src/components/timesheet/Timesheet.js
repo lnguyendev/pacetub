@@ -9,6 +9,7 @@ import CircularProgressbar from 'react-circular-progressbar';
 import Tasks from './Tasks';
 
 const Panel = Collapse.Panel;
+const validDateFormat = 'MM-DD-YYYY';
 
 class Timesheet extends Component {
   constructor(props) {
@@ -35,8 +36,13 @@ class Timesheet extends Component {
     const { timesheets, taskLoading } = this.props;
 
     const timesheetContent = _.map(timesheets, timesheet => {
-      const dayOfWeek = moment(timesheet.dateFormatted).format('dddd');
-      const dateFormat = moment(timesheet.dateFormatted).format('MM/DD/YYYY');
+      const dayOfWeek = moment(timesheet.dateFormatted, validDateFormat).format(
+        'dddd'
+      );
+      const dateFormat = moment(
+        timesheet.dateFormatted,
+        validDateFormat
+      ).format('MM/DD/YYYY');
       const percentageAchieved = this.calculatePercentageAchieved(
         timesheet.tasks
       );
