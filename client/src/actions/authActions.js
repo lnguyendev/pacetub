@@ -15,6 +15,10 @@ export const registerUser = (userData, history) => dispatch => {
     .then(res => {
       history.push('/');
       dispatch({
+        type: GET_SUCCESS_MSG,
+        payload: 'Register successfully'
+      });
+      dispatch({
         type: CLEAR_ERRORS
       });
     })

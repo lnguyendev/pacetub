@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Form, Button, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authActions';
+import { loginUser, clearSuccess } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
@@ -14,7 +15,8 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      success: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -22,6 +24,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
+    this.props.clearSuccess();
     this.props.clearErrors();
   }
 
@@ -34,7 +37,8 @@ class Login extends Component {
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
       this.setState({
-        errors: { ...this.props.errors }
+        errors: { ...this.props.errors },
+        success: this.props.success
       });
     }
   }
@@ -63,7 +67,7 @@ class Login extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, success } = this.state;
 
     return (
       <div className="box-view">
@@ -106,6 +110,12 @@ class Login extends Component {
                 <Link to="/register">Register</Link> here!
               </span>
             </p>
+            {!_.isEmpty(success) && (
+              <Alert
+                message="Congrats! You have successfully registered. Now proceed to enter the magic kingdom."
+                type="success"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -115,17 +125,20 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  clearSuccess: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  success: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  success: state.success
 });
 
 export default connect(
   mapStateToProps,
-  { loginUser, clearErrors }
+  { loginUser, clearSuccess, clearErrors }
 )(Login);

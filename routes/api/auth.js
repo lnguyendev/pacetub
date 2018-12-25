@@ -142,7 +142,7 @@ router.post('/forgot-password', (req, res) => {
           });
 
           const mailOptions = {
-            from: 'lnguyendev@gmail.com',
+            from: keys.nodemailerEmail,
             to: user.email,
             subject: 'Timesheet: Password Reset',
             text:
