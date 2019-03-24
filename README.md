@@ -10,7 +10,7 @@ application. There's a lot more features I want to continue to add to the applic
 what I have built so far.<br />
 <br />
 <strong>Application can be viewed live here:</strong><br />
-http://www.pacetub.com/<br />
+https://www.pacetub.com/<br />
 <br/>
 <strong>Future features</strong><br />
 <u>
